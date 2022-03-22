@@ -69,20 +69,39 @@ delete from user where userNum = 2;
 create table user (
                       userNum bigint primary key ,
                       userId varchar(50),
-                      userName varchar(50),
+                      userNickName varchar(50) unique ,
                       userPassword varchar(50),
                       userEmail varchar(50)
 );
 
-# 제약조건 이름 걸기
-create table user (
-                      userNum bigint,
-                      userId varchar(50),
-                      userName varchar(50),
-                      userPassword varchar(50),
-                      userEmail varchar(50) ,
-                      constraint userKey primary key (userNum)
+create table board (
+              boardNum bigint primary key ,
+              userNum bigint,
+              userNickName varchar(50),
+              writeUser varchar(50),
+                   foreign key (userNum)
+                   references user(userNum) ,
+                   foreign key (userNickName)
+                   references user(userNickName)
 );
+
+create table img(
+    imgNum bigint primary key ,
+    boardNum bigint ,
+    imgBinary varchar(255) ,
+    foreign key (boardNum)
+        references board(boardNum)
+);
+
+/**
+  댓글 구현은 나중에
+ */
+
+
+
+
+
+# 제약조건 이름 걸기
 # 추후수정하기
 alter table user modify column userNum bigint primary key ;
 
@@ -94,13 +113,20 @@ delete from user where userNum = 7;
 
 select * from user;
 
-select * from board;
-
 drop table user;
 drop table board;
 
 select count(*) from user where userId = 'test';
 
-select count(*) from user where userId = 'test'
+select count(*) from user where userId = 'test';
+
+create table board (
+                      boardNum bigint primary key,
+                      userNum bigint ,
+                      userNickName varchar(100),
+                      write varchar(100),
+                      reply varchar(100)
+);
+
 
 

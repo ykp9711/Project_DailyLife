@@ -41,8 +41,6 @@ public class UserController {
         return "user/addUserForm";
     }
 
-
-
     @PostMapping("/addUser")
     public String signUp(@ModelAttribute User user , Model model , HttpSession session) {
 
@@ -194,7 +192,6 @@ public class UserController {
     }
 
 
-
     @PostMapping("/main")
     public String login(@ModelAttribute User user, Model model, HttpSession session){
         if(userService.login(user)==1){
@@ -210,7 +207,6 @@ public class UserController {
 
     @GetMapping("/directMessage")
     public String directMessage() {return  "directmessage";}
-
 
 
 }
