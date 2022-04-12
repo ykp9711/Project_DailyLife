@@ -53,7 +53,7 @@ public class UserService{
         Sha256 encrypt = new Sha256();
         String cryptogram = encrypt.encrypt(user.getUserPassword());
         user.setUserPassword(cryptogram);
-        user.setUserNum(++sequence);
+        //user.setUno(++sequence);
         log.info("암호화 : "+cryptogram);
        return userMapper.addUser(user);
     }

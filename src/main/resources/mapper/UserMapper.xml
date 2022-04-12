@@ -2,27 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.DailyLife.mapper.UserMapper">
     <select id="findAll" resultType="com.DailyLife.dto.User" >
-        select * from user
+        select * from tbl_user
     </select>
 
-    <insert id="addUser" useGeneratedKeys="true" keyProperty="userNum">
-        insert INTO user(userId,userNickName,userPassword,userEmail) values (#{userId} ,#{userNickName}, #{userPassword}, #{userEmail})
+    <insert id="addUser" useGeneratedKeys="true" keyProperty="uno">
+        insert INTO tbl_user(userId,userNickName,userPassword,userEmail) values (#{userId} ,#{userNickName}, #{userPassword}, #{userEmail})
     </insert>
 
     <select id="login" resultType="_int">
-        select count(*) from user where userId = #{userId} and userPassword = #{userPassword}
+        select count(*) from tbl_user where userId = #{userId} and userPassword = #{userPassword}
     </select>
 
     <select id="findByEmail" resultType="string">
-        select userId from user where userEmail = #{userEmail}
+        select userId from tbl_user where userEmail = #{userEmail}
     </select>
 
     <select id="CheckById" resultType="_int">
-         select count(*) from user where userId = #{userId}
+         select count(*) from tbl_user where userId = #{userId}
     </select>
 
     <select id="CheckByUserNickName" resultType="_int">
-         select count(*) from user where userNickName = #{userNickName}
+         select count(*) from tbl_user where userNickName = #{userNickName}
     </select>
 
 

@@ -4,11 +4,11 @@
 
 
     <insert id="addBoard" useGeneratedKeys="true" keyProperty="bno">
-        insert INTO tbl_board(userId,boardContent) values ( #{userId} ,#{boardContent})
+        insert INTO tbl_board(uno,content) values ( #{uno} ,#{content})
     </insert>
 
-    <insert id="addPhoto">
-        insert INTO tbl_userPhoto(bno,photoRandomName) values ( #{bno}, #{photoRandomName})
+    <insert id="addPhoto" useGeneratedKeys="true" keyProperty="pno">
+        insert INTO tbl_boardPhoto(bno,photoRandomName) values ( #{bno}, #{photoRandomName})
     </insert>
 
 

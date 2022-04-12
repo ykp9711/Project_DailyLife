@@ -46,7 +46,7 @@ public class UserController {
     public String signUp (@ModelAttribute User user , Model model , HttpSession session) throws NoSuchAlgorithmException {
         log.info("user = {}" , user);
         userService.addUser(user);
-        return "indexsub";
+        return "index";
     }
     @GetMapping("/deleteUser")
     public String deleteForm(@ModelAttribute User user, Model model) {

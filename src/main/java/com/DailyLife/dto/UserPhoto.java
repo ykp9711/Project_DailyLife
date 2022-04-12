@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class UserPhoto {
+    private Long pno;
     private Long bno;
-    private String photoOriginalName;
     private String photoRandomName;
 }

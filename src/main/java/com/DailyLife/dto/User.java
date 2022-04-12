@@ -9,7 +9,7 @@ import javax.validation.constraints.Pattern;
 @Data
 public class User {
 
-    private Long userNum;
+    private Long uno;
 //    @Pattern(regexp = "^{5,15}(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=_]).*$" )
     private String userNickName;
 //    @Pattern(regexp = "^[a-zA-Z0-9]{5,15}$")
