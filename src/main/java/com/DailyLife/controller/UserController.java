@@ -48,7 +48,18 @@ public class UserController {
         userService.addUser(user);
         return "indexsub";
     }
+    @GetMapping("/deleteUser")
+    public String deleteForm(@ModelAttribute User user, Model model) {
+        model.addAttribute("user",user);
+        return "user/deleteForm";
+    }
+    @RequestMapping(value="/deleteUser/{userId}", method = {RequestMethod.POST})
+    public String delete(@ModelAttribute User user,HttpSession session){
+        User us = (User)session.getAttribute("user");
 
+        userService.deleteUser(us.getUserId());
+        return "/main";
+    }
 
     @GetMapping("/follower")
     public String follower() {

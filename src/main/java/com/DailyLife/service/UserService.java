@@ -1,10 +1,12 @@
 package com.DailyLife.service;
 
 import com.DailyLife.Sha256;
+import com.DailyLife.dao.UserDao;
 import com.DailyLife.dto.User;
 import com.DailyLife.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -19,10 +21,13 @@ import java.util.Random;
 @Slf4j
 @RequiredArgsConstructor
 public class UserService{
+    @Autowired
+    UserDao userDao;
 
     private final JavaMailSender mailSender;
     private final UserMapper userMapper;
     private static long sequence = 0L;
+
 
     public String emailSend(String userEmail) {
         Random rd = new Random();
@@ -52,7 +57,10 @@ public class UserService{
         log.info("암호화 : "+cryptogram);
        return userMapper.addUser(user);
     }
-
+    public void deleteUser(String userId){
+        log.info("삭제 :"+userId);
+        userDao.deleteUser(userId);
+    }
     public int login(User user) throws NoSuchAlgorithmException {
         Sha256 encrypt = new Sha256();
         String cryptogram = encrypt.encrypt(user.getUserPassword());

@@ -19,7 +19,10 @@ public interface UserMapper {
     int login(User user);
     Optional<String> findByEmail(@Param("userEmail") String email);
 
+    int deleteUser(@Param("userId")String userId);
+
     int CheckById(@Param("userId")String userId); // userId 중복확인
 
     int CheckByUserNickName(String userNickName); // userNickName 중복확인
+
 }
