@@ -18,7 +18,9 @@ public class Upload {
     public List<String> FileUpload(MultipartFile[] file) throws IOException {
         //String uploadPath = "C:\\Users\\ykp\\git\\Project_Aview\\src\\main\\webapp\\resources\\FileImage"; // 경필 저장 경로
 
-        String uploadPath = "C:\\Project_DailyLife\\src\\main\\resources\\static\\uploadImage";//정근 저장 주소
+//        String uploadPath = "C:\\Project_DailyLife\\src\\main\\resources\\static\\uploadImage";//정근 저장 주소
+        String uploadPath = "C:\\Users\\sdm03\\OneDrive\\바탕 화면\\프젝(dl)\\dl-v4\\Project_DailyLife\\src\\main\\resources\\static\\uploadImage";
+
         ArrayList<String> fileName = new ArrayList<>(); // 파일 이름들을 저장할 리스트 생성
 
         File target = new File(uploadPath);
@@ -40,7 +42,6 @@ public class Upload {
             target = new File(uploadPath, saveFileName);
             file[i].transferTo(target);
             fileName.add(saveFileName); // 리스트에 파일이름 갯수만큼 저장
-
 
         }
         return fileName; // 리스트 리턴

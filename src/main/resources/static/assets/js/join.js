@@ -1,4 +1,3 @@
-
 $('#userId').on("propertychange change keyup paste input", function(){
     var userId = $('#userId').val(); // .id_input에 입력되는 값
     var data = {userId : userId} // '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'

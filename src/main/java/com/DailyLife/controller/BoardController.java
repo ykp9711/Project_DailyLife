@@ -1,23 +1,19 @@
 package com.DailyLife.controller;
 
 import com.DailyLife.dto.Board;
-import com.DailyLife.dto.Upload;
-import com.DailyLife.dto.UserPhoto;
+import com.DailyLife.dto.BoardInfos;
+import com.DailyLife.dto.BoardPhoto;
 import com.DailyLife.mapper.BoardMapper;
+import com.DailyLife.service.BoardService;
+import com.DailyLife.service.UserService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.log4j.Log4j2;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,41 +21,49 @@ import java.util.ArrayList;
 @RequestMapping("/board")
 public class BoardController {
 
-    @Autowired
-    BoardMapper boardMapper;
-    @Autowired
-    Upload up;
+    private final BoardService boardService;
+    private final BoardMapper boardMapper;
+    private final UserService userService;
+
     @GetMapping("/write")
     public String getWriteForm() {
-
         return "board/write";
 
     }
 
     @GetMapping("/getwrite")
     public String getWriteForm2() {
-
-        return "board/getwrite";
+        return "board/getwrtie";
 
     }
 
     @PostMapping("/write")
     @Transactional
-    public String write(Board bo, MultipartFile[] file, MultipartFile[] UserPhoto, MultipartFile[] photos, UserPhoto userPhoto)throws Exception{
-        if(photos[0].getSize()!= 0) {
-            ArrayList<String> fileName = new ArrayList<>(); // 파일 이름들을 받을 리스트 생성
-            fileName=(ArrayList<String>) up.FileUpload(photos); // 받아온 파일 이름들을 리스트에 저장
-            for(int i=0; i<fileName.size(); i++) { // 리스트 크기만큼 반복
-                userPhoto.setPhotoRandomName(fileName.get(i)); // 파일들을 DB에 저장
-                userPhoto.setBno(1L); // bno값 임시로 1로 설정함 ----------차후에 수정
-                boardMapper.addPhoto(userPhoto);
-            }
-        }
-        bo.setUno(1); // 유저 uno 임시로 1로 넣어줌 ------ 차후에 수정
-        log.info(bo);
-        boardMapper.addBoard(bo);
+    public String write(@ModelAttribute Board board , HttpSession session) throws Exception{
+
+        Long uno = userService.findBySession(session);
+        boardService.addBoard(board , uno);
+
+        List<BoardPhoto> boardPhotos = boardMapper.findAllPhoto();
+        System.out.println("boardPhotos = " + boardPhotos);
 
         return null;
+    }
+
+    @GetMapping("/getBoardInfo/{uno}")
+    @ResponseBody
+    public String getBoardInfo(@PathVariable Long uno) {
+
+        List<BoardInfos> byUno = boardService.findByUno(uno);
+
+        return "getBoardInfo - OK";
+    }
+
+    @PostMapping("/updateBoard/{bno}")
+    @ResponseBody
+    public String updateBoard(@PathVariable Long bno) {
+
+        return "updateBoard - OK";
     }
 
 

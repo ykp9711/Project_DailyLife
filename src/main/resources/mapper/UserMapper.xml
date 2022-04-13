@@ -5,6 +5,10 @@
         select * from tbl_user
     </select>
 
+    <select id="findByUserId" resultType="com.DailyLife.dto.User">
+        select * from tbl_user where userId = #{userId}
+    </select>
+
     <insert id="addUser" useGeneratedKeys="true" keyProperty="uno">
         insert INTO tbl_user(userId,userNickName,userPassword,userEmail) values (#{userId} ,#{userNickName}, #{userPassword}, #{userEmail})
     </insert>

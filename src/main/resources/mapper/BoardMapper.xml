@@ -2,16 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.DailyLife.mapper.BoardMapper">
 
-
     <insert id="addBoard" useGeneratedKeys="true" keyProperty="bno">
-        insert INTO tbl_board(uno,content) values ( #{uno} ,#{content})
+        insert INTO tbl_board(uno,content,thumbnail) values ( #{uno} ,#{content} , #{thumbnail})
     </insert>
 
     <insert id="addPhoto" useGeneratedKeys="true" keyProperty="pno">
-        insert INTO tbl_boardPhoto(bno,photoRandomName) values ( #{bno}, #{photoRandomName})
+        <selectKey resultType="long" order="BEFORE" keyProperty="bno">select Max(bno) from tbl_board</selectKey>
+        insert INTO tbl_boardPhoto(bno,photoRandomName) values ( #{bno} , #{photoRandomName})
     </insert>
 
+    <select id="findAllPhoto" resultType="com.DailyLife.dto.BoardPhoto">
+        select * from tbl_boardPhoto;
+    </select>
 
 
+    <select id="findByUno" resultType="com.DailyLife.dto.BoardInfos">
+        select * from tbl_board inner join
+                      tbl_boardPhoto on TBL_BOARD.bno = tbl_boardPhoto.bno where uno = #{uno}
+    </select>
 
 </mapper>

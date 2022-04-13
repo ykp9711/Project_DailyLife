@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
 import java.util.Optional;
 import java.util.Random;
@@ -71,9 +72,9 @@ public class UserService{
         userDao.deleteUser(userId);
     }
     public int login(User user) throws NoSuchAlgorithmException {
-        Sha256 encrypt = new Sha256();
-        String cryptogram = encrypt.encrypt(user.getUserPassword());
-        user.setUserPassword(cryptogram);
+//            Sha256 encrypt = new Sha256();
+//            String cryptogram = encrypt.encrypt(user.getUserPassword());
+//            user.setUserPassword(cryptogram);
         return userMapper.login(user);
     }
     public void logout(HttpServletResponse response) throws  Exception{
@@ -95,5 +96,10 @@ public class UserService{
 
         return userMapper.CheckById(userId);
 
+    }
+
+    public Long findBySession(HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        return user.getUno();
     }
 }

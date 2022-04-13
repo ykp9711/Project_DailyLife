@@ -1,108 +1,64 @@
-select *
-from user;
-
-# 시퀀스 생성 프로시저 , 함수
-
-create table sequence (
-                          name varchar(32),
-                          currVal bigint unsigned
+create table TBL_USER (
+                          uno bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                          userId varchar(255)  ,
+                          userNickName varchar(255),
+                          userPassword varchar(255),
+                          userEmail varchar(255)
 );
 
-delimiter $$
-create procedure `create_sequence` (IN the_name text)
-    MODIFIES SQL DATA
-    DETERMINISTIC
-begin
-    delete from sequence where name = the_name;
-    insert into sequence values (the_name ,0);
-end $$
-
-delimiter $$
-create function `nextVal` (the_name varchar(32))
-    returns bigint unsigned
-    modifies sql data
-    deterministic
-begin
-    declare ret bigint unsigned;
-    update sequence set currVal = currVal +1 where name = the_name;
-    select currVal into  ret from sequence where name = the_name limit 1;
-    return ret;
-end $$
-
-# set global log_bin_trust_function_creators=1; << super(root)로부터 권한을 받아야 function이 생성이 됨 따라서 ,
-# root로 접속해서 해당 부분 설정해주어야함 cmd , workbench로 ,,
-
-# modifies sql data deterministic >> sql최적화
-
-# sequnce를 생성할 프로시저를 실행함
-call create_sequence('sequence');
-
-# dual은 더미테이블이고 값만 가져옴 .
-select nextVal('sequence') from dual;
-
-# --------테스트----------
-
-create table test (
-                      num bigint,
-                      userId varchar(50)
+CREATE TABLE TBL_BOARD(
+                          bno bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                          uno bigint NOT NULL,
+                          content varchar(5000),
+                          date datetime default current_timestamp,
+                          thumbnail varchar(500)
 );
+ALTER TABLE TBL_BOARD ADD CONSTRAINT FK_uno FOREIGN KEY (uno) REFERENCES TBL_USER(uno) on DELETE CASCADE;
 
-select * from test;
+insert into tbl_board(bno,uno,content) values (NULL,1 , 'contentTest');
 
-drop table test;
 
-insert into test values ((select nextVal('sequence') from dual) , '아이디');
-
-insert into user values ((select nextVal('sequence') from dual) , 'test' , 'test2' , 'userPassword22' , 'userEmaildd');
-
-select *
-from user;
-
-select * from user;
-
-drop table user;
-
-delete from user where userNum = 2;
-
-# mysql 추후 수정하기
-# 기본키로 설정
-create table user (
-                      userNum bigint primary key ,
-                      userId varchar(50),
-                      userName varchar(50),
-                      userPassword varchar(50),
-                      userEmail varchar(50)
+create table tbl_boardPhoto (
+                                pno bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                                bno bigint ,
+                                photoRandomName varchar(1000)
 );
-drop table user;
-# 제약조건 이름 걸기
-create table user (
-                      userNum bigint,
-                      userId varchar(50),
-                      userName varchar(50),
-                      userPassword varchar(50),
-                      userEmail varchar(50) ,
-                      constraint userKey primary key (userNum)
+ALTER TABLE TBL_boardPhoto ADD CONSTRAINT FK_bno FOREIGN KEY (bno) REFERENCES tbl_board(bno)
+    on DELETE CASCADE;
+
+
+
+
+
+create table tbl_reply(
+                          rno bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                          bno bigint ,
+                          content varchar(255),
+                          userId varchar(255),
+                          date datetime default current_timestamp
 );
-# 추후수정하기
-alter table user modify column userNum bigint primary key ;
+ALTER TABLE TBL_reply ADD CONSTRAINT FK_rno FOREIGN KEY (bno) REFERENCES TBL_board(bno)
+    on DELETE CASCADE;
 
-select userId from user where userEmail = 'userEmailddd';
+select * from tbl_user;
+select * from tbl_boardPhoto;
+select * from tbl_board;
 
-insert into user values ((select nextVal('sequence') from dual) , 'test' , 'test2' , 'userPassword22' , 'sdm0313@naver.com');
+drop table tbl_user;
+drop table tbl_boardPhoto;
+drop table tbl_board;
 
-delete from user where userNum = 7;
+insert into tbl_user (userId, userNickName, userPassword, userEmail) value ('a' , 'scott' , 'a' , 'sdm0313@naver.com');
+insert into tbl_user (userId, userNickName, userPassword, userEmail) value ('b' , 'scott1' , 'b' , 'sdm0314@naver.com');
+insert into tbl_user (userId, userNickName, userPassword, userEmail) value ('c' , 'scott2' , 'c' , 'sdm0315@naver.com');
 
-select * from user;
+insert into tbl_board (uno, content, thumbnail) value (1 , 'dummyBoardContent' , 'binary');
+insert into tbl_board (uno, content, thumbnail) value (1 , 'dummyBoardContent1' , 'binary1');
+insert into tbl_board (uno, content, thumbnail) value (2 , 'dummyBoardContent2' , 'binary2');
+insert into tbl_board (uno, content, thumbnail) value (2 , 'dummyBoardContent3' , 'binary3');
 
-select * from board;
+insert into tbl_boardPhoto (bno, photoRandomName) value (1, 'photoRandomNameBinary1');
+insert into tbl_boardPhoto (bno, photoRandomName) value (1 , 'photoRandomNameBinary2');
+insert into tbl_boardPhoto (bno, photoRandomName) value (1 , 'photoRandomNameBinary3');
 
-drop table user;
-drop table board;
-
-select count(*) from user where userId = 'test';
-
-select count(*) from user where userId = 'test'
-
-
-
-
+SELECT * FROM tbl_board A INNER JOIN tbl_boardPhoto B ON A.bno = B.bno where uno = 1;e
