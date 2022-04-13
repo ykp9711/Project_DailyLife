@@ -16,10 +16,12 @@ public interface UserMapper {
 
     int addUser(User user);
 
+    int updateUser(User user);
+
     int login(User user);
     Optional<String> findByEmail(@Param("userEmail") String email);
 
-    int deleteUser(@Param("userId")String userId);
+    User findById(@Param("userId")String userId);
 
     int CheckById(@Param("userId")String userId); // userId 중복확인
 

@@ -256,6 +256,17 @@ public class UserController {
         else { // result 값이 1이 아니라면 없는 아이디로 success 리턴
             return "success";  }
     }
+    @GetMapping("userInfo/userUpdate")
+    public String userUpdate(Model model) {
+        model.addAttribute("user", model);
+        return "user/infoUpdateForm";
+    }
+    @PostMapping("/addUser")
+    public String update (@ModelAttribute User user , Model model , HttpSession session) throws NoSuchAlgorithmException {
+        log.info("user = {}" , user);
+        userService.addUser(user);
+        return "index";
+    }
 }
 
 
