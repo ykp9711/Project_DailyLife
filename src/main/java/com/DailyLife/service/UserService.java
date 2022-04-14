@@ -29,7 +29,6 @@ public class UserService{
     private final UserMapper userMapper;
     private static long sequence = 0L;
 
-
     public String emailSend(String userEmail) {
         Random rd = new Random();
 
@@ -58,23 +57,18 @@ public class UserService{
         log.info("암호화 : "+cryptogram);
        return userMapper.addUser(user);
     }
-    public int updateUser(User user) throws NoSuchAlgorithmException {
-        Sha256 encrypt = new Sha256();
-        User user1 = userMapper.findById(user.getUserId());
-        String cryptogram = encrypt.encrypt(user.getUserPassword());
-        user.setUserPassword(cryptogram);
-        //user.setUno(++sequence);
-        log.info("암호화 : "+cryptogram);
-        return userMapper.addUser(user);
+    public int updateUser(User user) {
+        return userMapper.updateUser(user);
     }
+
     public void deleteUser(String userId){
         log.info("삭제 :"+userId);
         userDao.deleteUser(userId);
     }
     public int login(User user) throws NoSuchAlgorithmException {
-//            Sha256 encrypt = new Sha256();
-//            String cryptogram = encrypt.encrypt(user.getUserPassword());
-//            user.setUserPassword(cryptogram);
+            Sha256 encrypt = new Sha256();
+            String cryptogram = encrypt.encrypt(user.getUserPassword());
+            user.setUserPassword(cryptogram);
         return userMapper.login(user);
     }
     public void logout(HttpServletResponse response) throws  Exception{

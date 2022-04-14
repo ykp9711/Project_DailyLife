@@ -37,12 +37,12 @@
 							<a href="photoModify.html">사진수정</a></span><br>
 						</header>
 
-						<form method="post" action="#">
+						<form method="post" action="#" th:object="${user}">
 							<div class="fields">
 
 								<div class="field">
 									<span style="float: left">-modify NICKNAME</span>
-									<input type="text" name="name" id="name" placeholder="NICKNAME" />
+									<input type="text" name="name" id="name" th:placeholder="*{userId}" />
 								</div>
 								<div class="field">
 									<span style="float: left">-modify PASSWORD</span>
@@ -68,7 +68,7 @@
 							<br>
 							<ul class="actions special">
 
-								<li><input type="submit" value="submit"></li>
+								<li><input type="submit" value="변경"></li>
 							</ul>
 
 						</form>

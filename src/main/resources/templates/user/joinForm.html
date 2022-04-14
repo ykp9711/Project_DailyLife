@@ -36,56 +36,7 @@
 		<header>
 			<h1>회원가입</h1>
 		</header>
-
 		<hr />
-		<form method="post" action="main.html" th:action="@{/user/test}" th:object="${user}">
-			<div class="fields">
-
-				<div class="field addUserInputDiv">  <!--아이디-->
-					<input type="text" id="userId" placeholder="ID" th:field="*{userId}" >
-					<p id="Check_Id" style="height: 1px; display: none;"></p>
-				</div>
-
-				<div class="field addUserInputDiv"> <!--닉네임-->
-					<input type="text"  id="userNickName" placeholder="NICKNAME"  th:field="*{userNickName}" disabled>
-					<p id="Check_NickName" style="height: 1px; display: none;"></p>
-				</div>
-
-				<div class="field addUserInputDiv"> <!--비밀번호-->
-					<input type="password" id="userPassword" placeholder="PASSWORD" th:field="*{userPassword}" disabled >
-					<p id="pw" style="height: 1px; font-size:1%; display: none;"></p>
-				</div>
-
-				<div class="field addUserInputDiv" > <!--비밀번호 확인-->
-					<input type="password" id="userPasswordCheck" name="userPasswordCheck" placeholder="ConfirmPW" disabled >
-					<p id="Check_Pw" style="height: 1px; font-size:1%; display: none;"></p>
-				</div>
-
-				<div class="field addUserInputDiv" >
-					<input type="email" id="userEmail" placeholder="EMAIL" th:field="*{userEmail}"
-						   style="display: inline-block; width: 60%; float: left;" disabled>
-					<div style="display: inline-block; margin: 2%; font-size: 90%;"><button id="emailButton" onclick="emailAuthorSend()" type="button" disabled>메일인증</button></div>
-				</div>
-				<p id="Check_Email" style="height: 1px; font-size:1%; display: none;"></p>
-
-				<div id="emailSendText" style="font-size: 14px; position: relative; left: 20px; max-height: 15px; margin-bottom: -1%">
-					<p th:text="${message}"></p>
-				</div>
-
-				<div class="field addUserInputDiv">
-					<input type="text" id="emailAuthor" placeholder="certification"
-						   th:field="*{emailAuthor}" disabled
-						   style="display: inline-block; width: 60%; float: left;">
-					<div style="display: inline-block; margin: 2%; font-size: 90%;"><button id="authorButton" onclick="emailAuthorCheck()" type="button" disabled >인증</button></div>
-				</div>
-
-				<div id="emailCheckText" style="font-size: 14px; position: relative; left: 20px; max-height: 15px; margin-bottom: -1%">
-					<p th:text="${message2}"></p>
-				</div>
-
-
-<<<<<<< HEAD
-								<hr />
 						<form method="post" action="main.html" th:action th:object="${user}">
 							<div class="fields">
 
@@ -133,9 +84,6 @@
 
 
 						</div>
-=======
-			</div>
->>>>>>> ec56f0607e7d67e39d0fb51b6626da47acf7cbc8
 
 
 			<ul class="actions special" >
