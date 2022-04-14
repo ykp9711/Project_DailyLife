@@ -1,6 +1,9 @@
 package com.DailyLife.controller;
 
 import com.DailyLife.dto.Board;
+import com.DailyLife.dto.Reply;
+import com.DailyLife.dto.Upload;
+
 import com.DailyLife.dto.BoardInfos;
 import com.DailyLife.dto.BoardPhoto;
 import com.DailyLife.mapper.BoardMapper;
@@ -8,13 +11,25 @@ import com.DailyLife.service.BoardService;
 import com.DailyLife.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpSession;
 import java.net.MalformedURLException;
 import java.util.List;
@@ -26,8 +41,48 @@ import java.util.Map;
 @RequestMapping("/board")
 public class BoardController {
 
+    @Autowired
+    BoardMapper boardMapper;
+    @Autowired
+    Upload up;
+
+
+    //댓글 작성하기
+    @PostMapping("addReply")
+    public String addReply(@ModelAttribute Reply reply, Model model, HttpServletRequest req, HttpServletResponse resp){
+        reply.setBno(2L);
+        boardMapper.addReply(reply);
+        model.addAttribute("replyList", reply);
+        String referer = req.getHeader("Referer"); // 헤더에서 이전 페이지를 읽는다.
+        return "redirect:"+ referer; // 이전 페이지로 리다이렉트
+    }
+    //댓글 삭제하기
+    @GetMapping("/removeReply")
+    public String removeReply(int rno, HttpServletRequest req) {
+        boardMapper.removeReply(rno);
+        String referer = req.getHeader("Referer"); // 헤더에서 이전 페이지를 읽는다.
+        return "redirect:"+ referer; // 이전 페이지로 리다이렉트
+    }
+
+    /*//댓글 수정 ajax
+    @PostMapping(value ="/modifyReply", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE , MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
+    public ResponseEntity<AcademyBoardReviewVO> reviewModify(int rno) {
+        AcademyBoardReviewVO vo = mapper.getOneReview(rno);
+
+        return new ResponseEntity<AcademyBoardReviewVO>(vo,org.springframework.http.HttpStatus.OK);
+    }
+    //댓글 수정
+    @PostMapping("/updateReview")
+    public String updateReivew(@RequestParam int rno,@RequestParam int ano, @RequestParam String content2) {
+        AcademyBoardReviewVO vo = new AcademyBoardReviewVO();
+        vo.setRno(rno);
+        vo.setContent(content2);
+        mapper.updateReview(vo);
+        return "redirect:/board/getBoard?ano="+ano;
+    }*/
+
     private final BoardService boardService;
-    private final BoardMapper boardMapper;
     private final UserService userService;
 
     @GetMapping("/write")

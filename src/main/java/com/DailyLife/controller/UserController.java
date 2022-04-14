@@ -43,7 +43,8 @@ public class UserController {
     }
 
     @PostMapping("/addUser")
-    public String signUp (@ModelAttribute User user , Model model) throws NoSuchAlgorithmException {
+    public String signUp (@ModelAttribute User user , Model model , HttpSession session) throws NoSuchAlgorithmException {
+        user.setUserPassword(user.getUserPasswordCheck());
         log.info("user = {}" , user);
         userService.addUser(user);
         return "index";
