@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="assets/css/main2.css" />
+    <script src="assets/js/dm.js"></script>
+    <noscript><link rel="stylesheet" href="assets/css/noscript2.css" /></noscript>
+
+    <style>
+        input[type="text"]{
+            width: 100%; height: 50px;
+            padding-left: 5px; position: absolute; bottom: 0; left: 0;
+            border-top: 1px solid #333333; border-radius: 0px;
+        }
+    </style>
+</head>
+
+<body class="is-preload">
+
+
+<div id="wrapper">
+    <div class="fields" style="text-align: center">
+        <a th:href="@{/Index}" class="button primary">HOME</a>
+    </div><br>
+    <section id="main">
+        <!--        <form method="post" action="#" style="position: relative; left: -15%; overflow: auto; height: 200px; width: 500px;" >-->
+
+
+
+        <section id="three" class="wrapper style1">
+            <header class="major">
+                <h2>댓글 백엔드</h2>
+            </header>
+            <div class="container">
+                <a style="width:100%" href="javascript:void(0)" class="button primary small register">댓글 쓰기 스크립트</a>
+                <div class="fields register-form" style="display:none">
+
+                    <section id="main">
+                        <form method="post" th:action="@{/board/addReply}">
+                            <div class="field">
+                                <!--<input type="hidden" name="bno" value="${bno}">
+-->                                    <label>작성자</label>
+                                <input type="text" maxlength="12" id= "userId"
+                                       name="userId" value="" placeholder="" required>
+                            </div><br>
+                            <div class="field">
+                                <label>댓글</label>
+                                <textarea name="coment"  id = "coment" rows="6"
+                                          style="resize: none;" placeholder=""></textarea>
+                            </div><br>
+                            <br>
+                            <ul class="actions">
+                                <li style="margin:0 auto;">
+                                    <input type="submit" value="작성하기" class="primary"/>
+                            </ul>
+                        </form>
+                    </section></div></div>
+            <div id="main" class="container">
+                <div class="row">
+                    <!-- Post -->
+
+                    <div style="width: 70%;">
+                        <div class="container">
+
+                            <div class="col-4 col-6-medium col-12-small">
+                                <article class="box post" style="width : 100%;">
+                                    <article style="width: 70%; height:1200px; margin: 0 auto;">
+                                            <div id ="reviewReply">
+                                                <tr th th:each="reply:${replyList}">
+                                                    <td th:text="${reply.userId}"></td>
+                                                    <td th:text="${reply.reply}"></td>
+                                                </tr>
+                                            </div>
+                                    </article>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+    </footer>
+
+</div>
+
+<!-- Scripts -->
+<script>
+    if ('addEventListener' in window) {
+        window.addEventListener('load', function() { document.body.className = document.body.className.replace(/\bis-preload\b/, ''); });
+        document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
+    }
+</script>
+<script>
+    $(".register").on("click", function(e){
+        e.preventDefault();
+
+        $(".register-form").show();
+        $(this).hide();
+    })
+
+
+    $(".cancle").on("click", function(e){
+        e.preventDefault();
+
+        $(".register-form").hide();
+        $(".register").show();
+    })
+</script>
+</body>
+</html>

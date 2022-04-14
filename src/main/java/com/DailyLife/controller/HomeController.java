@@ -1,5 +1,6 @@
 package com.DailyLife.controller;
 
+import com.DailyLife.dto.Reply;
 import com.DailyLife.dto.Board;
 import com.DailyLife.dto.User;
 import com.DailyLife.mapper.BoardMapper;
@@ -8,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
@@ -53,6 +55,12 @@ public class HomeController {
     @GetMapping("/test3")
     public String test3() {
         return "directmessage";
+    }
+
+    @GetMapping("/test4")
+    public String test4(@ModelAttribute Reply reply, Model model) {
+        model.addAttribute("replyList", reply);
+        return "coment";
     }
 
 }

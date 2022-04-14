@@ -15,6 +15,14 @@
         select * from tbl_boardPhoto;
     </select>
 
+    <insert id="addComent" useGeneratedKeys="true" keyProperty="rno">
+        insert INTO tbl_reply(bno, reply, userId) values (#{bno}, #{reply}, #{userId})
+    </insert>
+
+    <delete id="removeReply">
+        delete FROM tbl_reply WHERE RNO = #{RNO}
+    </delete>
+
 
     <select id="findByUno" resultType="com.DailyLife.dto.BoardInfos">
         select * from tbl_board inner join

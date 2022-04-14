@@ -8,7 +8,7 @@ import java.util.Date;
 public class Reply {
     private Long rno;
     private Long bno;
-    private String content;
+    private String reply;
     private String userId;
     Date date;
 }
