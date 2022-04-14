@@ -61,9 +61,9 @@ public class UserService{
         return userMapper.updateUser(user);
     }
 
-    public void deleteUser(String userId){
-        log.info("삭제 :"+userId);
-        userDao.deleteUser(userId);
+    public void deleteUser(User user){
+        log.info("삭제 :"+user);
+        userMapper.deleteUser(user.getUserId());
     }
     public int login(User user) throws NoSuchAlgorithmException {
             Sha256 encrypt = new Sha256();

@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
@@ -29,9 +30,7 @@ public class UserController {
     public static final String AUTH_TIME_OUT_FIND = "AuthTimeOutForFind";
     public static final String AUTH_NUM_CHECK = "authNumCheck";
     private final UserService userService;
-
-    @Autowired
-    UserMapper userMapper;
+    private final UserMapper userMapper;
 
     /*
       회원가입
@@ -54,13 +53,13 @@ public class UserController {
         model.addAttribute("user",user);
         return "user/deleteForm";
     }
-    @RequestMapping(value="/deleteUser/{userId}", method = {RequestMethod.POST})
-    public String delete(@ModelAttribute User user,HttpSession session){
-        User us = (User)session.getAttribute("user");
-
-
-        userService.deleteUser(us.getUserId());
-        return "/main";
+    @PostMapping(value="/deleteUser")
+    public String delete(HttpServletRequest request) throws Exception{
+        HttpSession session =  request.getSession();
+        User user = (User)session.getAttribute("user");
+        userService.deleteUser(user);
+        session.invalidate();
+        return "redirect:/";
     }
 
     @PostMapping("/test")
@@ -226,15 +225,13 @@ public class UserController {
     }
 
 
-
     @PostMapping("/main")
     public String login(@ModelAttribute User userLoginRequest, Model model, HttpSession session) throws NoSuchAlgorithmException {
         if(userService.login(userLoginRequest)==1){
             session.setAttribute("user" , findByUserId(userLoginRequest.getUserId()));
-            return "index";
-        }else {
+            return "redirect:/index";
+        }else
             return "main";
-        }
     }
 
     private User findByUserId(String userId) {

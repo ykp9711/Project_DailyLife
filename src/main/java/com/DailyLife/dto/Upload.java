@@ -19,7 +19,7 @@ public class Upload {
         //String uploadPath = "C:\\Users\\ykp\\git\\Project_Aview\\src\\main\\webapp\\resources\\FileImage"; // 경필 저장 경로
 
 //        String uploadPath = "C:\\Project_DailyLife\\src\\main\\resources\\static\\uploadImage";//정근 저장 주소
-        String uploadPath = "C:\\Users\\sdm03\\OneDrive\\바탕 화면\\프젝(dl)\\dl-v4\\Project_DailyLife\\src\\main\\resources\\static\\uploadImage";
+        String uploadPath = "C:\\Users\\sdm03\\OneDrive\\바탕 화면\\프젝(dl)\\dl-v5\\Project_DailyLife\\src\\main\\resources\\static\\uploadImage";
 
         ArrayList<String> fileName = new ArrayList<>(); // 파일 이름들을 저장할 리스트 생성
 

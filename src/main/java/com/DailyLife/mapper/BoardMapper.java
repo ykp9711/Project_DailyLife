@@ -16,7 +16,9 @@ public interface BoardMapper {
 
     int addBoard(Board board);
     int addPhoto(BoardPhoto boardPhoto);
+    List<Board> findAllBoard();
     List<BoardPhoto> findAllPhoto();
     List<BoardInfos> findByUno(Long uno);
-
+    List<Board> findAllBoardByUno(Long uno);
+    List<BoardPhoto> findAllBoardPhotoByBno(Long bno);
 }

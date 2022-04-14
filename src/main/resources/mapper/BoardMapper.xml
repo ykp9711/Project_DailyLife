@@ -21,4 +21,16 @@
                       tbl_boardPhoto on TBL_BOARD.bno = tbl_boardPhoto.bno where uno = #{uno}
     </select>
 
+    <select id="findAllBoardByUno" resultType="com.DailyLife.dto.Board">
+        select *from tbl_board where uno = #{uno};
+    </select>
+
+    <select id="findAllBoardPhotoByBno" resultType="com.DailyLife.dto.BoardPhoto">
+        select * from tbl_board where bno = ${bno};
+    </select>
+
+    <select id="findAllBoard" resultType="com.DailyLife.dto.Board">
+        select * from tbl_board;
+    </select>
+
 </mapper>

@@ -22,15 +22,14 @@ public class BoardService {
     private final Upload upload;
 
     public void addBoard(Board board , Long uno) {
-
-        board.setUno(uno);
-        board.setThumbnail(thumnailName(board));
-        boardMapper.addBoard(board);
-
         if(board.getPhotos()!= null) {
-            ArrayList<String> fileNameList;
             try {
-                fileNameList = (ArrayList<String>) upload.FileUpload(board.getPhotos()); // 받아온 파일 이름들을 리스트에 저장
+                ArrayList<String> fileNameList = (ArrayList<String>) upload.FileUpload(board.getPhotos());
+
+                board.setUno(uno);
+                board.setThumbnail(fileNameList.get(0));
+                boardMapper.addBoard(board);
+
                 for (String saveFileName: fileNameList) {
                     boardMapper.addPhoto(new BoardPhoto(saveFileName));
                 }

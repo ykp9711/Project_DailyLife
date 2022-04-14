@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:each="board : ${boards}">
+    <a th:href="|/board/getBoardPhoto/${board.getBno()}|">게시물 이동</a>
+    <img th:src="|/board/image/${board.getThumbnail()}|" width="300" , height="300">
+</div>
+</body>
+</html>

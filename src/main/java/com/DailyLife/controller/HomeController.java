@@ -1,19 +1,25 @@
 package com.DailyLife.controller;
 
+import com.DailyLife.dto.Board;
 import com.DailyLife.dto.User;
+import com.DailyLife.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/")
 public class HomeController {
+
+    private final BoardMapper boardMapper;
 
     @GetMapping("/")
     public String main(HttpSession session) {
@@ -25,7 +31,12 @@ public class HomeController {
     }
 
     @GetMapping("/index")
-    public String testIndex() {
+    public String testIndex(Model model) {
+
+        List<Board> boardList = boardMapper.findAllBoard();
+
+        model.addAttribute("board" , boardList);
+
         return "index";
     }
 

@@ -61,4 +61,12 @@ insert into tbl_boardPhoto (bno, photoRandomName) value (1, 'photoRandomNameBina
 insert into tbl_boardPhoto (bno, photoRandomName) value (1 , 'photoRandomNameBinary2');
 insert into tbl_boardPhoto (bno, photoRandomName) value (1 , 'photoRandomNameBinary3');
 
-SELECT * FROM tbl_board A INNER JOIN tbl_boardPhoto B ON A.bno = B.bno where uno = 1;e
+SELECT * FROM tbl_board A INNER JOIN tbl_boardPhoto B ON A.bno = B.bno where  A.bno = 13;
+
+truncate tbl_reply;
+truncate tbl_board;
+truncate tbl_boardPhoto;
+
+select * from tbl_board;
+select * from tbl_boardPhoto;
+delete from tbl_board where bno = 12;

@@ -1,4 +1,5 @@
 <!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <!--
 	Ethereal by Pixelarity
 	pixelarity.com | hello@pixelarity.com
@@ -41,18 +42,23 @@
 							<section class="panel">
 
 								<div class="gallery">
-									<div class="group span-3">
-										<a href="images/pic01.JPG" class="image filtered span-3" data-position="bottom"><img src="images/pic01.jpg" alt="" /></a>
-										<a href="images/pic02.jpg" class="image filtered span-1-5" data-position="center"><img src="images/pic02.jpg" alt="" /></a>
-										<a href="images/pic03.jpg" class="image filtered span-1-5" data-position="bottom"><img src="images/pic03.jpg" alt="" /></a>
-									</div>
+<!--									<div class="group span-3">-->
+<!--										<a href="images/pic01.JPG" class="image filtered span-3" data-position="bottom"><img src="images/pic01.jpg" alt="" /></a>-->
+<!--										<a href="images/pic02.jpg" class="image filtered span-1-5" data-position="center"><img src="images/pic02.jpg" alt="" /></a>-->
+<!--&lt;!&ndash;										<a href="images/pic03.jpg" class="image filtered span-1-5" data-position="bottom"><img src="images/pic03.jpg" alt="" /></a>&ndash;&gt;-->
+<!--									</div>-->
 									<a href="images/pic03.jpg" class="image filtered span-2-5" data-position="top"><img src="images/pic03.jpg" alt="" /></a>
-									<div class="group span-4-5">
-										<a href="images/pic03.jpg" class="image filtered span-3" data-position="top"><img src="images/pic03.jpg" alt="" /></a>
-										<a href="images/pic03.jpg" class="image filtered span-1-5" data-position="center"><img src="images/pic03.jpg" alt="" /></a>
-										<a href="images/pic03.jpg" class="image filtered span-1-5" data-position="bottom"><img src="images/pic03.jpg" alt="" /></a>
-										<a href="images/pic03.jpg" class="image filtered span-3" data-position="top"><img src="images/pic03.jpg" alt="" /></a>
-									</div>
+<!--									<div class="group span-4-5">-->
+<!--										<a href="images/pic03.jpg" class="image filtered span-3" data-position="top"><img src="images/pic03.jpg" alt="" /></a>-->
+<!--										<a href="images/pic03.jpg" class="image filtered span-3" data-position="center"><img src="images/pic03.jpg" alt="" /></a>-->
+<!--&lt;!&ndash;										<a href="images/pic03.jpg" class="image filtered span-3" data-position="bottom"><img src="images/pic03.jpg" alt="" /></a>&ndash;&gt;-->
+<!--&lt;!&ndash;										<a href="images/pic03.jpg" class="image filtered span-3" data-position="top"><img src="images/pic03.jpg" alt="" /></a>&ndash;&gt;-->
+<!--									</div>-->
+
+									<th:block th:each="board : ${board}">
+										<a th:href="|/board/getBoardPhoto/${board.getBno()}|" class="image filtered span-3"><img th:src="|/board/image/${board.getThumbnail()}|" alt="" ></a>
+									</th:block>
+
 									<a href="images/pic03.jpg" class="image filtered span-2-5" data-position="right"><img src="images/pic03.jpg" alt="" /></a>
 								</div>
 							</section>
