@@ -16,6 +16,7 @@ public class User {
     private String userId;
 //    @Pattern(regexp = "^{8,20}(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=_]).*$" )
     private String userPassword;
+    private String userPasswordCheck;
     private String userEmail;
 
     private Integer emailAuthor;

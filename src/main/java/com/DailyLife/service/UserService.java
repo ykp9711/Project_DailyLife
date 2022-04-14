@@ -55,9 +55,9 @@ public class UserService{
     }
 
     public int login(User user) throws NoSuchAlgorithmException {
-//            Sha256 encrypt = new Sha256();
-//            String cryptogram = encrypt.encrypt(user.getUserPassword());
-//            user.setUserPassword(cryptogram);
+            Sha256 encrypt = new Sha256();
+            String cryptogram = encrypt.encrypt(user.getUserPassword());
+            user.setUserPassword(cryptogram);
         return userMapper.login(user);
     }
     public void logout(HttpServletResponse response) throws  Exception{
