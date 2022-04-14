@@ -59,7 +59,7 @@ public class HomeController {
 
     @GetMapping("/test4")
     public String test4(@ModelAttribute Reply reply, Model model) {
-        model.addAttribute("replyList", reply);
+        model.addAttribute("replyList", boardMapper.getAllReply());
         return "coment";
     }
 

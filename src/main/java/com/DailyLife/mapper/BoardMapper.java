@@ -27,4 +27,6 @@ public interface BoardMapper {
     int addReply(Reply reply); // 댓글 작성
 
     void removeReply(int rno); // 댓글 삭제
+
+    List<Reply> getAllReply();
 }

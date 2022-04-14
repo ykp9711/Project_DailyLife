@@ -49,7 +49,7 @@
                             </div><br>
                             <div class="field">
                                 <label>댓글</label>
-                                <textarea name="coment"  id = "coment" rows="6"
+                                <textarea name="reply"  id = "reply" rows="6"
                                           style="resize: none;" placeholder=""></textarea>
                             </div><br>
                             <br>
@@ -59,7 +59,7 @@
                             </ul>
                         </form>
                     </section></div></div>
-            <div id="main" class="container">
+            <div id="main2" class="container">
                 <div class="row">
                     <!-- Post -->
 
@@ -71,8 +71,8 @@
                                     <article style="width: 70%; height:1200px; margin: 0 auto;">
                                             <div id ="reviewReply">
                                                 <tr th th:each="reply:${replyList}">
-                                                    <td th:text="${reply.userId}"></td>
-                                                    <td th:text="${reply.reply}"></td>
+                                                    <td th:text="${reply.getUserId()}"></td>
+                                                    <td th:text="${reply.getReply()}"></td>
                                                 </tr>
                                             </div>
                                     </article>

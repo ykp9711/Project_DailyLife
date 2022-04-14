@@ -15,7 +15,7 @@
         select * from tbl_boardPhoto;
     </select>
 
-    <insert id="addComent" useGeneratedKeys="true" keyProperty="rno">
+    <insert id="addReply" useGeneratedKeys="true" keyProperty="rno">
         insert INTO tbl_reply(bno, reply, userId) values (#{bno}, #{reply}, #{userId})
     </insert>
 
@@ -39,6 +39,10 @@
 
     <select id="findAllBoard" resultType="com.DailyLife.dto.Board">
         select * from tbl_board;
+    </select>
+
+    <select id="getAllReply" resultType="com.DailyLife.dto.Reply">
+        Select * from tbl_reply
     </select>
 
 </mapper>
