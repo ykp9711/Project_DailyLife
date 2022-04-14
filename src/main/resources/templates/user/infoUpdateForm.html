@@ -10,9 +10,21 @@
 		<title>Modify Profile</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main2.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript2.css" /></noscript>
+		<link rel="stylesheet" href="../assets/css/main2.css" th:href="@{../assets/css/main2.css}" />
+		<style>
+			input {
+				text-transform: none;
+			}
+			.field-error {
+				border-color: #dc3545;
+				color: #dc3545;
+			}
+			.userError {
+				position: relative; left: 3%; height: 14px;
+			}
+		</style>
 	</head>
+	<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
 	<body class="is-preload">
 
 		<!-- Wrapper -->
@@ -21,16 +33,16 @@
 				<!-- Main -->
 					<section id="main">
 						<header>
-							<span class="avatar"><img src="../static/images/pic14.jpg" alt="" />
+							<span class="avatar"><img src="../images/gallery/pic14.jpg" alt="" />
 							<a href="photoModify.html">사진수정</a></span><br>
 						</header>
 
-						<form method="post" action="#">
+						<form method="post" action="#" th:object="${user}">
 							<div class="fields">
 
 								<div class="field">
 									<span style="float: left">-modify NICKNAME</span>
-									<input type="text" name="name" id="name" placeholder="NICKNAME" />
+									<input type="text" name="name" id="name" th:placeholder="*{userId}" />
 								</div>
 								<div class="field">
 									<span style="float: left">-modify PASSWORD</span>
@@ -56,7 +68,7 @@
 							<br>
 							<ul class="actions special">
 
-								<li><input type="submit" value="submit"></li>
+								<li><input type="submit" value="변경"></li>
 							</ul>
 
 						</form>

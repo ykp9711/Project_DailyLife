@@ -28,6 +28,8 @@
     <select id="CheckByUserNickName" resultType="_int">
          select count(*) from tbl_user where userNickName = #{userNickName}
     </select>
-
+    <delete id="deleteUser">
+        delete from tbl_user where userId = #{userId}
+    </delete>
 
 </mapper>

@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
@@ -47,6 +48,19 @@ public class UserController {
         log.info("user = {}" , user);
         userService.addUser(user);
         return "index";
+    }
+    @GetMapping("/deleteUser")
+    public String deleteForm(@ModelAttribute User user, Model model) {
+        model.addAttribute("user",user);
+        return "user/deleteForm";
+    }
+    @PostMapping(value="/deleteUser")
+    public String delete(HttpServletRequest request) throws Exception{
+        HttpSession session =  request.getSession();
+        User user = (User)session.getAttribute("user");
+        userService.deleteUser(user);
+        session.invalidate();
+        return "redirect:/";
     }
 
     @PostMapping("/test")
@@ -256,6 +270,18 @@ public class UserController {
         }
         else { // result 값이 1이 아니라면 없는 아이디로 success 리턴
             return "success";  }
+    }
+    @GetMapping("/userInfo/userUpdate")
+    public String userUpdate(Model model, HttpSession session) {
+        model.addAttribute("user", session.getAttribute("user"));
+        return "user/infoUpdateForm";
+    }
+    @PostMapping("/userInfo/userUpdate")
+    public String update ( HttpSession session) throws NoSuchAlgorithmException {
+        User user = (User) session.getAttribute("user");
+        log.info("user = {}" , user);
+        userService.updateUser(user);
+        return "user/Information";
     }
 }
 

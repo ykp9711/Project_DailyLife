@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--
+	Identity by Pixelarity
+	pixelarity.com | hello@pixelarity.com
+	License: pixelarity.com/license
+-->
+<head>
+    <title>Untitled</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <!--    <link rel="stylesheet" href="../static/assets/css/main2.css" />-->
+    <link rel="stylesheet" href="assets/css/main2.css" th:href="@{assets/css/main2.css}"/>
+    <style>
+        input {
+            text-transform: none;
+        }
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+        .userError {
+            position: relative; left: 3%; height: 14px;
+        }
+    </style>
+</head>
+<!--<script src="assets/js/ajax.js"></script>-->
+<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Main -->
+    <section id="main">
+        <header>
+            <h1>탈퇴 하시겠습니까?</h1>
+        </header>
+
+        <hr />
+        <form method="post" action="main.html" th:action="@{/user/deleteUser}" th:object="${user}">
+
+            <ul class="actions special" >
+                <li><input type="submit" class="button" value="삭제" id="delete" /></li>&nbsp;&nbsp;
+                <li><button class="button" style="font-size: 15px;" onclick="location.href='main.html'" th:onclick="|location.href='@{/user/userInfo}'|" type="button">취소</button></li>
+            </ul>
+
+
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+    </footer>
+
+</div>
+
+<!-- Scripts -->
+<script type="text/javascript" src="/assets/js/join.js"></script>
+<script>
+
+
+    if ('addEventListener' in window) {
+        window.addEventListener('load', function() { document.body.className = document.body.className.replace(/\bis-preload\b/, ''); });
+        document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
+    }
+
+
+</script>
+
+</body>
+</html>
