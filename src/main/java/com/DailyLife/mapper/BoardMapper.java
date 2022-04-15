@@ -17,16 +17,18 @@ public interface BoardMapper {
 
     int addBoard(Board board);
     int addPhoto(BoardPhoto boardPhoto);
+    int addReply(Reply reply);
+
     List<Board> findAllBoard();
     List<BoardPhoto> findAllPhoto();
-    List<BoardInfos> findByUno(Long uno);
+    List<BoardInfos> findBoardInfoByUno(Long uno);
     List<Board> findAllBoardByUno(Long uno);
     List<BoardPhoto> findAllBoardPhotoByBno(Long bno);
 
+    List<Reply> getAllReply();
 
-    int addReply(Reply reply); // 댓글 작성
+
+    void removeReplyByUno(int rno); // 댓글 삭제
 
     void removeReply(int rno); // 댓글 삭제
-
-    List<Reply> getAllReply();
 }

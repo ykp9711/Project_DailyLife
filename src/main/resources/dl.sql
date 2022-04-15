@@ -33,7 +33,7 @@ ALTER TABLE TBL_boardPhoto ADD CONSTRAINT FK_bno FOREIGN KEY (bno) REFERENCES tb
 create table tbl_reply(
                           rno bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
                           bno bigint ,
-                          content varchar(255),
+                          reply varchar(255),
                           userId varchar(255),
                           date datetime default current_timestamp
 );
@@ -67,6 +67,12 @@ truncate tbl_reply;
 truncate tbl_board;
 truncate tbl_boardPhoto;
 
+select * from tbl_reply;
+
+drop table tbl_reply;
+
+select * from tbl_user;
 select * from tbl_board;
 select * from tbl_boardPhoto;
-delete from tbl_board where bno = 12;
+delete from tbl_board where bno = 18;
+delete from tbl_user where uno = 7;

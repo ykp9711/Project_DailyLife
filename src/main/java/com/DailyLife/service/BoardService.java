@@ -1,9 +1,7 @@
 package com.DailyLife.service;
 
-import com.DailyLife.dto.Board;
-import com.DailyLife.dto.BoardInfos;
-import com.DailyLife.dto.BoardPhoto;
-import com.DailyLife.dto.Upload;
+import com.DailyLife.dto.*;
+import com.DailyLife.infra.file.Upload;
 import com.DailyLife.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,7 +23,6 @@ public class BoardService {
         if(board.getPhotos()!= null) {
             try {
                 ArrayList<String> fileNameList = (ArrayList<String>) upload.FileUpload(board.getPhotos());
-
                 board.setUno(uno);
                 board.setThumbnail(fileNameList.get(0));
                 boardMapper.addBoard(board);
@@ -41,18 +38,47 @@ public class BoardService {
 
     }
 
-    private String thumnailName(Board board) {
-        MultipartFile photo = board.getPhotos()[0];
-        String orgFileName = photo.getOriginalFilename();  //파일 실제이름
-        String orgFileExtension = orgFileName.substring(orgFileName.lastIndexOf(".")); // 파일 확장자 exe같은거
-        String saveFileName = UUID.randomUUID().toString().replaceAll("-", "") + orgFileExtension;
-        return saveFileName;
-    }
 
-    public List<BoardInfos> findByUno(Long uno) {
+    public List<BoardInfos> findBoardInfoByUno(Long uno) {
 
-        List<BoardInfos> boardInfos = boardMapper.findByUno(uno);
+        List<BoardInfos> boardInfos = boardMapper.findBoardInfoByUno(uno);
 
         return boardInfos;
+    }
+
+    public void addReply(Reply reply) {
+        boardMapper.addReply(reply);
+
+    }
+
+    public void removeReplyByUno(int rno) {
+        boardMapper.removeReplyByUno(rno);
+
+    }
+
+    public List<BoardPhoto> findAllPhoto() {
+        return boardMapper.findAllPhoto();
+    }
+
+    public List<Board> findAllBoardByUno(Long uno) {
+        return boardMapper.findAllBoardByUno(uno);
+
+    }
+
+    public List<BoardPhoto> findAllBoardPhotoByBno(Long bno) {
+
+        return boardMapper.findAllBoardPhotoByBno(bno);
+    }
+
+    public List<Board> findAllBoard() {
+
+        return boardMapper.findAllBoard();
+
+    }
+
+    public List<Reply> getAllReply() {
+
+        return boardMapper.getAllReply();
+
     }
 }

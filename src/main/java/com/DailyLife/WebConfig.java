@@ -13,8 +13,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .order(1)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/", "/user/addUser", "/user/findUser", "/user/main" ,
-                        "/css/**", "/*.ico", "/error" , "/user/assets/**" , "/assets/**"
-                        , "/user/images/**" ,"/images/**" , "/user/emailAuthorCheck/**", "/user/EmailAuthor/**" , "/user/checkId", "/user/checkNickName");
-
+                        "/css/**", "/*.ico", "/error" , "/user/assets/**" , "/assets/**" , "/user/findById" , "/user/findByIdToPw" , "/mail/sendEmailtoFind"
+                        , "/user/images/**" ,"/images/**" , "/mail/emailAuthorCheck/**", "/mail/EmailAuthor/**" , "/user/test" , "/mail/AuthNumSend");
     }
 }

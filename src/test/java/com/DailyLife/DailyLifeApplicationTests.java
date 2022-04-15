@@ -27,10 +27,6 @@ class DailyLifeApplicationTests {
 
 	@Test
 	void findAllTest() {
-		List<User> user = userMapper.findAll();
-		for (User addUserDto : user) {
-			System.out.println("addUserDto = " + addUserDto);
-		}
 	}
 
 	@Test

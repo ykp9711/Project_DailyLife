@@ -4,6 +4,7 @@ import com.DailyLife.dto.Reply;
 import com.DailyLife.dto.Board;
 import com.DailyLife.dto.User;
 import com.DailyLife.mapper.BoardMapper;
+import com.DailyLife.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,8 @@ import java.util.List;
 @RequestMapping("/")
 public class HomeController {
 
-    private final BoardMapper boardMapper;
+    private final BoardService boardService;
+
 
     @GetMapping("/")
     public String main(HttpSession session) {
@@ -34,32 +36,21 @@ public class HomeController {
 
     @GetMapping("/index")
     public String testIndex(Model model) {
-
-        List<Board> boardList = boardMapper.findAllBoard();
+        List<Board> boardList = boardService.findAllBoard();
 
         model.addAttribute("board" , boardList);
 
         return "index";
     }
 
-    @GetMapping("/test")
-    public String test() {
-        return "Write";
-    }
-
-    @GetMapping("/test2")
-    public String test2() {
-        return "indexsub";
-    }
-
-    @GetMapping("/test3")
-    public String test3() {
-        return "directmessage";
-    }
+    /**
+     * 테스트 컨트롤러
+     * @return
+     */
 
     @GetMapping("/test4")
     public String test4(@ModelAttribute Reply reply, Model model) {
-        model.addAttribute("replyList", boardMapper.getAllReply());
+        model.addAttribute("replyList", boardService.getAllReply());
         return "coment";
     }
 

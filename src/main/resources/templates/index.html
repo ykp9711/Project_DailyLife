@@ -1,3 +1,4 @@
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <!--
 	Ethereal by Pixelarity
@@ -46,7 +47,7 @@
 				display: inline;
 				text-shadow: 1px 1px 2px gray;
 				color: white;
-				
+
 			}
 			#modal .title h2 {
 				display: inline;
@@ -59,7 +60,7 @@
 				text-shadow: 1px 1px 2px gray;
 				color: white;
 			}
-			
+
 			#modal .content {
 				margin-top: 20px;
 				padding: 0px 10px;
@@ -99,21 +100,21 @@
 	<body class="is-preload">
 		<div id="modal" class="modal-overlay">
 			<div class="modal-window">
-				
+
 				<div class="close-area">X</div>
 				<div class="photo">
 					<img width="100%;" height="100%;" src="images/pic01.jpg" alt="" />
-					
+
 				</div>
 				<div class="content">
 					<p>가나다라마바사 아자차카타파하</p>
 					<p>가나다라마바사 아자차카타파하</p>
 					<p>가나다라마바사 아자차카타파하</p>
 					<p>가나다라마바사 아자차카타파하</p>
-					
+
 				</div>
 			</div>
-			
+
 		</div>
 		<!-- Page Wrapper -->
 			<div id="page-wrapper">
@@ -129,7 +130,7 @@
 									<ul class="icons">
 										<li><a th:href="@{/user/userInfo}" class="icon fa-user"></a></li>
 										<li><a href="#" class="icon fa-heart" onclick="test()"></a></li>
-										<li><a th:href="@{/board/write}" class="icon fa-plus-square"></a></li>
+										<li><a th:href="@{/board/addWrite}" class="icon fa-plus-square"></a></li>
 										<li><a th:href="@{/user/directMessage}" class="icon brands fa-medium-m"></a></li>
 									</ul>
 
@@ -140,10 +141,10 @@
 
 
 							<section class="panel">
-
+								<th:block th:each="board : ${board}">
 								<div class="gallery">
 									<div class="group span-3">
-										<a href="javascript:void(0)" class="btn-modal" style="width: 100%; height: 70%;" ><img height="100%" width="100%" src="images/pic01.jpg" alt="" /></a>
+										<a href="javascript:void(0)" class="btn-modal" style="width: 100%; height: 70%;" ><img th:src="|/board/image/${board.getThumbnail()}|" alt="" width="100%" height="100%"></a>
 										<div style="width: 100%; height: 28%; color: black; padding:0.5em;">
 											<div style="width: 100%; height: 20%;" >
 											<a href="#" class="icon fa-heart" onclick="test()"></a><span style="color:hotpink">162</span>&nbsp;
@@ -159,110 +160,9 @@
 										<p style="color: black; padding: 0.5em;">어쩌구저쩌구~~~~~~~</p>
 									</div>
 									</div>
-										
 									</div>
-									
-									<div class="group span-3">
-										<a href="javascript:void(0)" class="btn-modal" style="width: 100%; height: 70%;" ><img height="100%" width="100%" src="images/pic01.jpg" alt="" /></a>
-										<div style="width: 100%; height: 28%; color: black; padding:0.5em;">
-											<div style="width: 100%; height: 20%;" >
-											<a href="#" class="icon fa-heart" onclick="test()"></a><span style="color:hotpink">162</span>&nbsp;
-											<i class="fa-solid fa-comment"></i><span style="color: darkgray; font-size:85% ;">댓글 145개</span>
-											</div>
-											<div style="width: 20%; float: left;">
-										<div class="box" style="background: #BDBDBD;">
-											<img class="profile" src="images/pic01.jpg"/>
-										</div>
-										<span style="color: black;">tester123</span>
-										</div>
-										<div style="width: 79%; float: right;" >
-										<p style="color: black; padding: 0.5em;">어쩌구저쩌구~~~~~~~</p>
-									</div>
-									</div>
-										
-									</div>
-
-									<div class="group span-3">
-										<a href="javascript:void(0)" class="btn-modal" style="width: 100%; height: 70%;" ><img height="100%" width="100%" src="images/pic01.jpg" alt="" /></a>
-										<div style="width: 100%; height: 28%; color: black; padding:0.5em;">
-											<div style="width: 100%; height: 20%;" >
-											<a href="#" class="icon fa-heart" onclick="test()"></a><span style="color:hotpink">162</span>&nbsp;
-											<i class="fa-solid fa-comment"></i><span style="color: darkgray; font-size:85% ;">댓글 145개</span>
-											</div>
-											<div style="width: 20%; float: left;">
-										<div class="box" style="background: #BDBDBD;">
-											<img class="profile" src="images/pic01.jpg"/>
-										</div>
-										<span style="color: black;">tester123</span>
-										</div>
-										<div style="width: 79%; float: right;" >
-										<p style="color: black; padding: 0.5em;">어쩌구저쩌구~~~~~~~</p>
-									</div>
-									</div>
-										
-									</div>
-
-									<div class="group span-3">
-										<a href="javascript:void(0)" class="btn-modal" style="width: 100%; height: 70%;" ><img height="100%" width="100%" src="images/pic01.jpg" alt="" /></a>
-										<div style="width: 100%; height: 28%; color: black; padding:0.5em;">
-											<div style="width: 100%; height: 20%;" >
-											<a href="#" class="icon fa-heart" onclick="test()"></a><span style="color:hotpink">162</span>&nbsp;
-											<i class="fa-solid fa-comment"></i><span style="color: darkgray; font-size:85% ;">댓글 145개</span>
-											</div>
-											<div style="width: 20%; float: left;">
-										<div class="box" style="background: #BDBDBD;">
-											<img class="profile" src="images/pic01.jpg"/>
-										</div>
-										<span style="color: black;">tester123</span>
-										</div>
-										<div style="width: 79%; float: right;" >
-										<p style="color: black; padding: 0.5em;">어쩌구저쩌구~~~~~~~</p>
-									</div>
-									</div>
-										
-									</div>
-
-									<div class="group span-3">
-										<a href="javascript:void(0)" class="btn-modal" style="width: 100%; height: 70%;" ><img height="100%" width="100%" src="images/pic01.jpg" alt="" /></a>
-										<div style="width: 100%; height: 28%; color: black; padding:0.5em;">
-											<div style="width: 100%; height: 20%;" >
-											<a href="#" class="icon fa-heart" onclick="test()"></a><span style="color:hotpink">162</span>&nbsp;
-											<i class="fa-solid fa-comment"></i><span style="color: darkgray; font-size:85% ;">댓글 145개</span>
-											</div>
-											<div style="width: 20%; float: left;">
-										<div class="box" style="background: #BDBDBD;">
-											<img class="profile" src="images/pic01.jpg"/>
-										</div>
-										<span style="color: black;">tester123</span>
-										</div>
-										<div style="width: 79%; float: right;" >
-										<p style="color: black; padding: 0.5em;">어쩌구저쩌구~~~~~~~</p>
-									</div>
-									</div>
-										
-									</div>
-
-									<div class="group span-3">
-										<a href="javascript:void(0)" class="btn-modal" style="width: 100%; height: 70%;" ><img height="100%" width="100%" src="images/pic01.jpg" alt="" /></a>
-										<div style="width: 100%; height: 28%; color: black; padding:0.5em;">
-											<div style="width: 100%; height: 20%;" >
-											<a href="#" class="icon fa-heart" onclick="test()"></a><span style="color:hotpink">162</span>&nbsp;
-											<i class="fa-solid fa-comment"></i><span style="color: darkgray; font-size:85% ;">댓글 145개</span>
-											</div>
-											<div style="width: 20%; float: left;">
-										<div class="box" style="background: #BDBDBD;">
-											<img class="profile" src="images/pic01.jpg"/>
-										</div>
-										<span style="color: black;">tester123</span>
-										</div>
-										<div style="width: 79%; float: right;" >
-										<p style="color: black; padding: 0.5em;">어쩌구저쩌구~~~~~~~</p>
-									</div>
-									</div>
-										
-									</div>
-									
 								</div>
+								</th:block>
 							</section>
 
 
@@ -303,7 +203,7 @@
 
 	const modal = document.getElementById("modal")
 	function modalOn() {
-		
+
 		var scrollValue = $(document).scrollLeft();
 		$(document).scrollLeft(scrollValue)
 		modal.style.display = "flex"
@@ -338,6 +238,6 @@
 
 		</script>
 
-		
+
 	</body>
 </html>
