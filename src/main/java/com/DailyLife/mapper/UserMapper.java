@@ -12,8 +12,9 @@ import java.util.Optional;
 @Repository
 public interface UserMapper {
 
-    List <User> findAll();
+    List <User> findAllUser();
 
+    int login(User user);
     User findByUserId(String loginId);
 
     int addUser(User user);
@@ -21,7 +22,6 @@ public interface UserMapper {
     int updateUser(User user);
     int deleteUser(@Param("userId") String userId);
 
-    int login(User user);
     Optional<String> findByEmail(@Param("userEmail") String email);
 
     User findById(@Param("userId")String userId);

@@ -2,7 +2,6 @@ package com.DailyLife.controller;
 
 import com.DailyLife.dto.Board;
 import com.DailyLife.dto.Reply;
-import com.DailyLife.dto.Upload;
 
 import com.DailyLife.dto.BoardInfos;
 import com.DailyLife.dto.BoardPhoto;
@@ -11,29 +10,18 @@ import com.DailyLife.service.BoardService;
 import com.DailyLife.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.http.HttpSession;
 import java.net.MalformedURLException;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -41,28 +29,27 @@ import java.util.Map;
 @RequestMapping("/board")
 public class BoardController {
 
-    @Autowired
-    BoardMapper boardMapper;
-    @Autowired
-    Upload up;
-
+//    private final BoardMapper boardMapper;
+    private final BoardService boardService;
+    private final UserService userService;
 
     //댓글 작성하기
-    @PostMapping("addReply")
+    @PostMapping("/addReply")
     public String addReply(@ModelAttribute Reply reply, Model model, HttpServletRequest req, HttpServletResponse resp){
         reply.setBno(2L);
-        boardMapper.addReply(reply);
+        boardService.addReply(reply);
         model.addAttribute("replyList", reply);
         String referer = req.getHeader("Referer"); // 헤더에서 이전 페이지를 읽는다.
         return "redirect:"+ referer; // 이전 페이지로 리다이렉트
     }
     //댓글 삭제하기
-    @GetMapping("/removeReply")
+    @GetMapping("/deleteReply")
     public String removeReply(int rno, HttpServletRequest req) {
-        boardMapper.removeReply(rno);
+        boardService.removeReplyByUno(rno);
         String referer = req.getHeader("Referer"); // 헤더에서 이전 페이지를 읽는다.
         return "redirect:"+ referer; // 이전 페이지로 리다이렉트
     }
+
 
     /*//댓글 수정 ajax
     @PostMapping(value ="/modifyReply", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE , MediaType.APPLICATION_XML_VALUE})
@@ -82,10 +69,7 @@ public class BoardController {
         return "redirect:/board/getBoard?ano="+ano;
     }*/
 
-    private final BoardService boardService;
-    private final UserService userService;
-
-    @GetMapping("/write")
+    @GetMapping("/addWrite")
     public String getWriteForm() {
         return "board/write";
 
@@ -93,19 +77,18 @@ public class BoardController {
 
     @GetMapping("/getwrite")
     public String getWriteForm2() {
-        return "board/getwrtie";
+        return "board/getwrite";
 
     }
 
-    @PostMapping("/write")
+    @PostMapping("/addWrite")
     @Transactional
     public String addBoard(@ModelAttribute Board board , HttpSession session) throws Exception{
 
         Long uno = userService.findBySession(session);
         boardService.addBoard(board , uno);
 
-        List<BoardPhoto> boardPhotos = boardMapper.findAllPhoto();
-        System.out.println("boardPhotos = " + boardPhotos);
+        List<BoardPhoto> boardPhotos = boardService.findAllPhoto();
 
         return "redirect:/index";
     }
@@ -116,11 +99,13 @@ public class BoardController {
      * @return List<BoardInfos>
      */
 
-    @GetMapping("/getBoardInfo/{uno}")
+    @GetMapping("/findBoardInfo/{uno}")
     @ResponseBody
     public String getBoardInfoByUno(@PathVariable Long uno) {
 
-        List<BoardInfos> byUno = boardService.findByUno(uno);
+        List<BoardInfos> byUno = boardService.findBoardInfoByUno(uno);
+
+
         return "getBoardInfo - OK";
     }
 
@@ -130,16 +115,14 @@ public class BoardController {
      * @return List<BoardInfos>
      */
 
-    @GetMapping("/getBoardInfo/{bno}")
+    @GetMapping("/findBoardInfo/{bno}")
     @ResponseBody
     public String getBoardInfoByBno(@PathVariable Long bno) {
 
-        List<BoardInfos> byUno = boardService.findByUno(bno);
+        List<BoardInfos> byUno = boardService.findBoardInfoByUno(bno);
         return "getBoardInfo - OK";
 
     }
-
-
 
     /**
      * uno에 따른 boardList를 가져옴.
@@ -147,10 +130,10 @@ public class BoardController {
      * @return  List<Board>
      */
 
-    @GetMapping("/getBoard/{uno}")
+    @GetMapping("/findBoard/{uno}")
     public String getBoardByUno(@PathVariable Long uno , Model model) {
 
-        List<Board> boards = boardMapper.findAllBoardByUno(uno);
+        List<Board> boards = boardService.findAllBoardByUno(uno);
 
         model.addAttribute("boards" , boards);
 
@@ -164,13 +147,12 @@ public class BoardController {
      * @return List<BoardPhoto>
      */
 
-    @GetMapping("/getBoardPhoto/{bno}")
+    @GetMapping("/findBoardPhoto/{bno}")
     @ResponseBody
     public List<BoardPhoto> getBoardPhotoByBno(@PathVariable Long bno , Model model) {
 
-        List<BoardPhoto> boardPhotos = boardMapper.findAllBoardPhotoByBno(bno);
+        List<BoardPhoto> boardPhotos = boardService.findAllBoardPhotoByBno(bno);
 
-        System.out.println("boardPhotos = " + boardPhotos);
 
         return boardPhotos;
 
@@ -178,7 +160,7 @@ public class BoardController {
 
     @GetMapping("/updateBoardForm")
     public String updateBoardForm() {
-        return "board/updateboardForm";
+        return "board/updateBoardForm";
     }
 
 
@@ -186,9 +168,6 @@ public class BoardController {
     @PostMapping("/updateBoard/{bno}")
     @ResponseBody
     public String updateBoard(@PathVariable Long bno) {
-
-        //bno -> 값을 넣고 ,
-
 
         return "updateBoard - OK";
 
@@ -201,7 +180,6 @@ public class BoardController {
     @GetMapping("/image/{fileName}")
     @ResponseBody
     public Resource downloadImage(@PathVariable String fileName) throws MalformedURLException {
-        System.out.println("fileName = " + fileName);
         String path = "C:\\Users\\sdm03\\OneDrive\\바탕 화면\\프젝(dl)\\dl-v5\\Project_DailyLife\\src\\main\\resources\\static\\uploadImage/" + fileName;
         return new UrlResource("file:" +path);
     }

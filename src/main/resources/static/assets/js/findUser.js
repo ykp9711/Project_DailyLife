@@ -13,13 +13,14 @@ function show_login_aca(){
 }
 
 function emailSend() {
-    
 
     $.ajax({
         url: "/user/findById",
         data: { userEmail : document.getElementById('userEmail').value } ,
         type: "GET"
     }).success(function (message)  {
+
+
 
         if(message === 'fail')  {
             document.getElementById('findedEmail').textContent = '존재하지 않는 이메일 입니다.'
@@ -60,11 +61,13 @@ function AuthEmailSend() {
     let CheckEmailDiv = document.getElementById('CheckEmailDiv');
 
     $.ajax({
-        url: "/user/sendEmailtoFind",
+        url: "/mail/sendEmailtoFind",
         data: { userEmail : userEmailToAuth.value } ,
         type: "GET" ,
         contentType: "application/x-www-form-urlencoded; charset=UTF-8", //controller로 값을 넘겨줄때.
     }).success(function (message)  {
+
+        console.log(message);
 
         if(message === 'complete') {
             CheckEmailDiv.textContent = '메일이 전송되었습니다.'
@@ -105,16 +108,16 @@ function AuthNumSend() {
     let authorNum = document.getElementById('authorNum');
 
     $.ajax({
-        url: "/user/AuthNumSend",
+        url: "/mail/AuthNumSend",
         data: { authorNum : authorNum.value } ,
         type: "GET" ,
-        contentType: "application/x-www-form-urlencoded; charset=UTF-8", //controller로 값을 넘겨줄때.
+        // contentType: "application/x-www-form-urlencoded; charset=UTF-8", //controller로 값을 넘겨줄때.
     }).success(function (message)  {
 
         if(message === 'OK') {
-
+            document.getElementById('PwChangeButton').disabled = false;
         } else {
-
+            document.getElementById('PwChangeButton').disabled = true;
         }
 
     })
@@ -123,30 +126,3 @@ function AuthNumSend() {
 
 
 
-
-// function emailAuthorSend() {
-//         let userEmail=$("#userEmail").val();
-//         let messageDTO={
-//             userEmail:userEmail ,
-//         };
-//             $.ajax({
-//                 url: "/user/EmailAuthor",
-//                 data: messageDTO,
-//                 type:"GET",
-//             }).success(function (message) {
-//                 const key = $.trim(message.key);
-//             if(key == 'succese') {
-//                 console.log(message.msg)
-//                 $("#emailSendText").replaceAll(message.msg);
-//             }
-//             if(key == 'emailDuplicate') {
-//                 console.log(message.msg)
-//                 $("#emailSendText").text(message.msg);
-//             }
-//             else {
-//                 console.log(message.msg)
-//                 $("#emailSendText").text(message.msg);
-//             }
-//
-//         });
-//     }

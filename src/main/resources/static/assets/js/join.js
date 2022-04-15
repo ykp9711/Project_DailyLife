@@ -132,7 +132,7 @@ function emailAuthorCheck() {
         emailAuthor:emailAuthor ,
     };
     $.ajax({
-        url: "/user/emailAuthorCheck",
+        url: "/mail/emailAuthorCheck",
         data: messageDTO,
         type:"POST",
     }).success(function (message2) {
@@ -154,7 +154,7 @@ function emailAuthorSend() {
         userEmail:userEmail ,
     };
     $.ajax({
-        url: "/user/EmailAuthor",
+        url: "/mail/EmailAuthor",
         data: messageDTO,
         type:"GET",
     }).success(function (message) {

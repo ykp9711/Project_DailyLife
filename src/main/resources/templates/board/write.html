@@ -45,7 +45,7 @@
 		<h2 style="text-align: center; margin-top: 3%;">게시글 등록</h2>
 	<div style="height:100%;width:100%; background: white; text-align: center; ">
 		<h4>사진 업로드</h4>
-		<form th:action="@{/board/write}"  id="uploadForm" method="post" enctype="multipart/form-data">
+		<form th:action="@{/board/addWrite}"  id="uploadForm" method="post" enctype="multipart/form-data">
 			<div style ="margin: 0 auto;"id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'></div>
 			<input type="file" multiple="multiple"  name="photos" id="btnAtt"  style="display:none"/>
 

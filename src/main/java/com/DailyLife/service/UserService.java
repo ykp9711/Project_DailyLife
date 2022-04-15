@@ -1,7 +1,6 @@
 package com.DailyLife.service;
 
 import com.DailyLife.Sha256;
-import com.DailyLife.dao.UserDao;
 import com.DailyLife.dto.User;
 import com.DailyLife.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
@@ -22,38 +21,14 @@ import java.util.Random;
 @Slf4j
 @RequiredArgsConstructor
 public class UserService{
-    @Autowired
-    UserDao userDao;
 
-    private final JavaMailSender mailSender;
     private final UserMapper userMapper;
     private static long sequence = 0L;
 
-    public String emailSend(String userEmail) {
-        Random rd = new Random();
-
-        StringBuilder authKey = new StringBuilder();
-
-        for (int i = 0; i < 6; i++) {
-            authKey.append(rd.nextInt(10));
-        }
-
-        System.out.println("userEmail = " + userEmail);
-
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(userEmail);
-        message.setSubject("인증메일입니다.");
-        message.setText(authKey.toString());
-
-//        mailSender.send(message);
-        return authKey.toString();
-    }
-
     public int addUser(User user) throws NoSuchAlgorithmException {
         Sha256 encrypt = new Sha256();
-        String cryptogram = encrypt.encrypt(user.getUserPassword());
+        String cryptogram = encrypt.encrypt(user.getUserPasswordCheck());
         user.setUserPassword(cryptogram);
-        //user.setUno(++sequence);
         log.info("암호화 : "+cryptogram);
        return userMapper.addUser(user);
     }
@@ -95,5 +70,16 @@ public class UserService{
     public Long findBySession(HttpSession session) {
         User user = (User) session.getAttribute("user");
         return user.getUno();
+    }
+
+    public User findByUserId(String userId) {
+
+      return  userMapper.findByUserId(userId);
+    }
+
+    public int CheckByUserNickName(String userNickName) {
+
+        return userMapper.CheckByUserNickName(userNickName);
+
     }
 }
